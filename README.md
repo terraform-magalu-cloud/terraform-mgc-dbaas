@@ -1,4 +1,4 @@
-<img title="a title" alt="Logo da magalu cloud" src="./img/magalu.png" width="100" height="100">  <img title="a title" alt="Logo do terraform" src="./img/terraform.png" width="100" height="100">
+<img title="a title" alt="Logo da magalu cloud" src="./docs/img/magalu.png" width="100" height="100">  <img title="a title" alt="Logo do terraform" src="./docs/img/terraform.png" width="100" height="100">
 
 ## Sumary
 This module was created and maintained by the community. If you want to help, see how to do this by accessing the repository:
