@@ -93,3 +93,15 @@ variable "replicas_num_hosts" {
     error_message = "This value can1t less than 1"
   }
 }
+
+variable "bastion_enable" {
+  type        = bool
+  default     = false
+  description = "Defini if bastion server will be create to acces database by CLI"
+
+}
+variable "bastion_ssh_key_name" {
+  type        = string
+  default     = ""
+  description = "Name of ssh key name to bastion server to access DB"
+}

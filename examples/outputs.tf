@@ -7,3 +7,13 @@ output "password" {
   value       = random_string.password.id
   sensitive   = true
 }
+
+output "ip_address" {
+  description = "Show IP of database"
+  value       = module.dbaas-example.ipv4
+}
+
+output "access" {
+  description = "Show IP of database"
+  value       = module.dbaas-example.access
+}
