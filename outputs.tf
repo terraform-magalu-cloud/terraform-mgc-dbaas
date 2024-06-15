@@ -22,6 +22,12 @@ output "current_status" {
   value = mgc_dbaas_instances.this[0].current_status
 }
 
-output "addresses_access" {
-  value = mgc_dbaas_instances.this[0].addresses[0].access
+output "ipv4" {
+  value     = mgc_dbaas_instances.this[0].addresses[0].address
+  sensitive = false
+}
+
+output "access" {
+  value     = mgc_dbaas_instances.this[0].addresses[0].access
+  sensitive = false
 }
