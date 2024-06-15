@@ -36,20 +36,20 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_backup_enable"></a> [backup\_enable](#input\_backup\_enable) | value | `bool` | `true` | no |
-| <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | value | `number` | `7` | no |
-| <a name="input_backup_start_at"></a> [backup\_start\_at](#input\_backup\_start\_at) | value | `string` | `"02:00:00"` | no |
+| <a name="input_password"></a> [password](#input\_password) | Define password firt user to login dbaas | `string` | n/a | yes |
+| <a name="input_backup_enable"></a> [backup\_enable](#input\_backup\_enable) | Define if backup is enable of the dbaas | `bool` | `true` | no |
+| <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | Define days to backup frequency of the dbaas | `number` | `7` | no |
+| <a name="input_backup_start_at"></a> [backup\_start\_at](#input\_backup\_start\_at) | Define hour start backup of the dbaas | `string` | `"02:00:00"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether resource will be created or not | `bool` | `true` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | value | `string` | `"mysql-8.0"` | no |
-| <a name="input_exchange"></a> [exchange](#input\_exchange) | value | `string` | `"dbaas-internal"` | no |
+| <a name="input_exchange"></a> [exchange](#input\_exchange) | Define exchange type | `string` | `"dbaas-internal"` | no |
 | <a name="input_flavor"></a> [flavor](#input\_flavor) | Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small | `string` | `"cloud-dbaas-bs1.medium"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of resource | `string` | `"test-db-terraform"` | no |
-| <a name="input_password"></a> [password](#input\_password) | value | `string` | `"abc0123asdmc"` | no |
-| <a name="input_replicas_enable"></a> [replicas\_enable](#input\_replicas\_enable) | value | `bool` | `true` | no |
-| <a name="input_replicas_num_hosts"></a> [replicas\_num\_hosts](#input\_replicas\_num\_hosts) | value | `number` | `2` | no |
-| <a name="input_user"></a> [user](#input\_user) | value | `string` | `"admin"` | no |
-| <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | value | `number` | `10` | no |
-| <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | value | `string` | `"CLOUD_NVME_15K"` | no |
+| <a name="input_replicas_enable"></a> [replicas\_enable](#input\_replicas\_enable) | Define if this dbaas use replica | `bool` | `false` | no |
+| <a name="input_replicas_num_hosts"></a> [replicas\_num\_hosts](#input\_replicas\_num\_hosts) | Define number hosts to be replica thiss dbaas | `number` | `1` | no |
+| <a name="input_user"></a> [user](#input\_user) | Define name firts user to login dbaas | `string` | `"admin"` | no |
+| <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | Define size volume in GB on dbaas | `number` | `20` | no |
+| <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | Define type volume in GB on dbaas | `string` | `"CLOUD_NVME_15K"` | no |
 
 ## Outputs
 
