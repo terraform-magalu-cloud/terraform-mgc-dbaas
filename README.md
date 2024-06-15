@@ -40,11 +40,13 @@ No modules.
 | <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | value | `number` | `7` | no |
 | <a name="input_backup_start_at"></a> [backup\_start\_at](#input\_backup\_start\_at) | value | `string` | `"02:00:00"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether resource will be created or not | `bool` | `true` | no |
+| <a name="input_engine"></a> [engine](#input\_engine) | value | `string` | `"mysql-8.0"` | no |
 | <a name="input_exchange"></a> [exchange](#input\_exchange) | value | `string` | `"dbaas-internal"` | no |
-| <a name="input_flavor_id"></a> [flavor\_id](#input\_flavor\_id) | value | `string` | `"cloud-dbaas-bs1.medium"` | no |
+| <a name="input_flavor"></a> [flavor](#input\_flavor) | Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small | `string` | `"cloud-dbaas-bs1.medium"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of resource | `string` | `"test-db-terraform"` | no |
 | <a name="input_password"></a> [password](#input\_password) | value | `string` | `"abc0123asdmc"` | no |
-| <a name="input_replicas_enable"></a> [replicas\_enable](#input\_replicas\_enable) | value | `bool` | `false` | no |
+| <a name="input_replicas_enable"></a> [replicas\_enable](#input\_replicas\_enable) | value | `bool` | `true` | no |
+| <a name="input_replicas_num_hosts"></a> [replicas\_num\_hosts](#input\_replicas\_num\_hosts) | value | `number` | `2` | no |
 | <a name="input_user"></a> [user](#input\_user) | value | `string` | `"admin"` | no |
 | <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | value | `number` | `10` | no |
 | <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | value | `string` | `"CLOUD_NVME_15K"` | no |
