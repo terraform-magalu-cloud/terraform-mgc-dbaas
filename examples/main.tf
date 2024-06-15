@@ -13,16 +13,16 @@ resource "random_string" "password" {
 }
 
 module "dbaas-example" {
-  source          = "../"
-  name            = "db-example-${random_string.sufix_name.id}"
-  flavor          = "cloud-dbaas-bs1.medium"
-  engine          = "mysql-8.0"
-  user            = "admin"
-  password        = random_string.password.id
-  replicas_enable = true
-  replicas_num_hosts = 1
-  volume_size     = 20
-  backup_enable   = true
-  bastion_enable = true
+  source               = "../"
+  name                 = "db-example-${random_string.sufix_name.id}"
+  flavor               = "cloud-dbaas-bs1.medium"
+  engine               = "mysql-8.0"
+  user                 = "admin"
+  password             = random_string.password.id
+  replicas_enable      = true
+  replicas_num_hosts   = 1
+  volume_size          = 20
+  backup_enable        = true
+  bastion_enable       = true
   bastion_ssh_key_name = "key-example"
 }
