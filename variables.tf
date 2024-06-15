@@ -89,7 +89,7 @@ variable "replicas_num_hosts" {
   default     = 1
   description = "Define number hosts to be replica thiss dbaas"
   validation {
-    condition     = var.replicas_num_hosts < 1
+    condition     = var.replicas_num_hosts > 0
     error_message = "This value can1t less than 1"
   }
 }
