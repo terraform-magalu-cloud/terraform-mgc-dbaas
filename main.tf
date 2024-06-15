@@ -21,3 +21,13 @@ resource "mgc_dbaas_replicas" "this" {
   name      = "${mgc_dbaas_instances.this[0].name}-${count.index}"
   source_id = mgc_dbaas_instances.this[0].id
 }
+
+
+module "bastion" {
+  source              = "terraform-magalu-cloud/virtual-machine/mgc"
+  version             = "1.1.0"
+  create              = var.bastion_enable ? true : false 
+  ssh_key_name        = length(var.bastion_ssh_key_name) > 0 ? var.bastion_ssh_key_name : null
+  name                = "bastion-${mgc_dbaas_instances.this[0].name}"
+  associate_public_ip = true
+}
