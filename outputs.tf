@@ -1,33 +1,41 @@
 output "name" {
-  value = mgc_dbaas_instances.this[0].name
+  description = "Name of resource"
+  value       = mgc_dbaas_instances.this[0].name
 }
 
 output "created_at" {
-  value = mgc_dbaas_instances.this[0].created_at
+  description = "Timstamp when this resource was created"
+  value       = mgc_dbaas_instances.this[0].created_at
 }
 
 output "started_at" {
-  value = mgc_dbaas_instances.this[0].started_at
+  description = "Timstamp when this resource was started last time"
+  value       = mgc_dbaas_instances.this[0].started_at
 }
 
 output "updated_at" {
-  value = mgc_dbaas_instances.this[0].updated_at
+  description = "Timstamp when this resource was updated last time"
+  value       = mgc_dbaas_instances.this[0].updated_at
 }
 
 output "id" {
-  value = mgc_dbaas_instances.this[0].id
+  description = "Id of resource"
+  value       = mgc_dbaas_instances.this[0].id
 }
 
 output "current_status" {
-  value = mgc_dbaas_instances.this[0].current_status
+  description = "Current status this resource"
+  value       = mgc_dbaas_instances.this[0].current_status
 }
 
 output "ipv4" {
-  value     = mgc_dbaas_instances.this[0].addresses[0].address
-  sensitive = false
+  description = "IP this resource, format IPv4"
+  value       = mgc_dbaas_instances.this[0].addresses[0].address
+  sensitive   = false
 }
 
 output "access" {
-  value     = mgc_dbaas_instances.this[0].addresses[0].access
-  sensitive = false
+  description = "Type access this resource, format PRIVATE or PUBLIC"
+  value       = mgc_dbaas_instances.this[0].addresses[0].access
+  sensitive   = false
 }
