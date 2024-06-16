@@ -13,7 +13,6 @@ This module was created and maintained by the community. If you want to help, se
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
 | <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | 0.18.10 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 
 ## Providers
 
@@ -59,11 +58,11 @@ This module was created and maintained by the community. If you want to help, se
 
 | Name | Description |
 |------|-------------|
-| <a name="output_access"></a> [access](#output\_access) | n/a |
-| <a name="output_created_at"></a> [created\_at](#output\_created\_at) | n/a |
-| <a name="output_current_status"></a> [current\_status](#output\_current\_status) | n/a |
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_ipv4"></a> [ipv4](#output\_ipv4) | n/a |
-| <a name="output_name"></a> [name](#output\_name) | n/a |
-| <a name="output_started_at"></a> [started\_at](#output\_started\_at) | n/a |
-| <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | n/a |
+| <a name="output_access"></a> [access](#output\_access) | Type access this resource, format PRIVATE or PUBLIC |
+| <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Timstamp when this resource was created |
+| <a name="output_current_status"></a> [current\_status](#output\_current\_status) | Current status this resource |
+| <a name="output_id"></a> [id](#output\_id) | Id of resource |
+| <a name="output_ipv4"></a> [ipv4](#output\_ipv4) | IP this resource, format IPv4 |
+| <a name="output_name"></a> [name](#output\_name) | Name of resource |
+| <a name="output_started_at"></a> [started\_at](#output\_started\_at) | Timstamp when this resource was started last time |
+| <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | Timstamp when this resource was updated last time |
