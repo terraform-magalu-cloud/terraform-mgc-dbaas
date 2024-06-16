@@ -27,8 +27,13 @@ module "bastion" {
   depends_on          = [mgc_dbaas_instances.this]
   source              = "terraform-magalu-cloud/virtual-machine/mgc"
   version             = "1.1.0"
-  create              = var.bastion_enable ? true : false
+  create              = var.bastion_enable
   ssh_key_name        = length(var.bastion_ssh_key_name) > 0 ? var.bastion_ssh_key_name : null
   name                = "bastion-${mgc_dbaas_instances.this[0].name}"
   associate_public_ip = true
+  user_data = <<EOF
+  #!/bin/bash
+  sudo apt update
+  sudo apt install mysql-client -y
+  EOF
 }
