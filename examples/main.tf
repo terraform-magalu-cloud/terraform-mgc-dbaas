@@ -24,5 +24,5 @@ module "dbaas_example" {
   volume_size          = 20
   backup_enable        = true
   bastion_enable       = true
-  bastion_ssh_key_name = "key-example"
+  bastion_ssh_key_name = var.ssh_key_name
 }
