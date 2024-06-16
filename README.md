@@ -1,11 +1,11 @@
-<img title="a title" alt="Logo da magalu cloud" src="./docs/img/magalu.png" width="100" height="100">  <img title="a title" alt="Logo do terraform" src="./docs/img/terraform.png" width="100" height="100">
+<img title="a title" alt="Logo da magalu cloud" src="https://github.com/terraform-magalu-cloud/.github/blob/61d26ff88c3d74c97d46c0957afd36894b8bbed1/profile/img/magalu.png" width="100" height="100">  <img title="a title" alt="Logo do terraform" src="https://github.com/terraform-magalu-cloud/.github/blob/61d26ff88c3d74c97d46c0957afd36894b8bbed1/profile/img/terraform.png" width="100" height="100">
 
 ## Sumary
 This module was created and maintained by the community. If you want to help, see how to do this by accessing the repository:
 [terraform-magalu-cloud/how-can-help](https://github.com/terraform-magalu-cloud/how-can-help)
 
 ## Example:
-[Default](https://github.com/terraform-magalu-cloud/terraform-mgc-dbaas/tree/main/example)
+[Default](https://github.com/terraform-magalu-cloud/terraform-mgc-dbaas/tree/main/examples)
 
 ## Requirements
 
@@ -23,7 +23,9 @@ This module was created and maintained by the community. If you want to help, se
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_bastion"></a> [bastion](#module\_bastion) | terraform-magalu-cloud/virtual-machine/mgc | 1.1.0 |
 
 ## Resources
 
@@ -40,6 +42,8 @@ No modules.
 | <a name="input_backup_enable"></a> [backup\_enable](#input\_backup\_enable) | Define if backup is enable of the dbaas | `bool` | `true` | no |
 | <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | Define days to backup frequency of the dbaas | `number` | `7` | no |
 | <a name="input_backup_start_at"></a> [backup\_start\_at](#input\_backup\_start\_at) | Define hour start backup of the dbaas | `string` | `"02:00:00"` | no |
+| <a name="input_bastion_enable"></a> [bastion\_enable](#input\_bastion\_enable) | Defini if bastion server will be create to acces database by CLI | `bool` | `false` | no |
+| <a name="input_bastion_ssh_key_name"></a> [bastion\_ssh\_key\_name](#input\_bastion\_ssh\_key\_name) | Name of ssh key name to bastion server to access DB | `string` | `""` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether resource will be created or not | `bool` | `true` | no |
 | <a name="input_engine"></a> [engine](#input\_engine) | value | `string` | `"mysql-8.0"` | no |
 | <a name="input_exchange"></a> [exchange](#input\_exchange) | Define exchange type | `string` | `"dbaas-internal"` | no |
@@ -55,10 +59,11 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_addresses_access"></a> [addresses\_access](#output\_addresses\_access) | n/a |
+| <a name="output_access"></a> [access](#output\_access) | n/a |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | n/a |
 | <a name="output_current_status"></a> [current\_status](#output\_current\_status) | n/a |
 | <a name="output_id"></a> [id](#output\_id) | n/a |
+| <a name="output_ipv4"></a> [ipv4](#output\_ipv4) | n/a |
 | <a name="output_name"></a> [name](#output\_name) | n/a |
 | <a name="output_started_at"></a> [started\_at](#output\_started\_at) | n/a |
 | <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | n/a |

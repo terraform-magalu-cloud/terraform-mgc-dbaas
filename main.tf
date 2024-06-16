@@ -31,7 +31,7 @@ module "bastion" {
   ssh_key_name        = length(var.bastion_ssh_key_name) > 0 ? var.bastion_ssh_key_name : null
   name                = "bastion-${mgc_dbaas_instances.this[0].name}"
   associate_public_ip = true
-  user_data = <<EOF
+  user_data           = <<EOF
   #!/bin/bash
   sudo apt update
   sudo apt install mysql-client -y
