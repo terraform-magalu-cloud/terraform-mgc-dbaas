@@ -23,7 +23,7 @@ variable "flavor" {
 variable "engine" {
   type        = string
   default     = "mysql-8.0"
-  description = "Definie which egine dbaas will be use"
+  description = "Definie which egine dbaas will be use, possible values: mysq-5.6 (deprecated), mysql-5.7 (deprecated) and mysql-8.0"
   validation {
     condition     = length(regexall("mysql-(5.6|5.7|8.0)", var.engine)) > 0
     error_message = "Value not found, possible values: mysq-5.6, mysql-5.7 and mysql-8.0"
@@ -84,15 +84,15 @@ variable "replicas_enable" {
   description = "Define if this dbaas use replica"
 }
 
-# variable "replicas_num_hosts" {
-#   type        = number
-#   default     = 1
-#   description = "Define number hosts to be replica thiss dbaas"
-#   validation {
-#     condition     = var.replicas_num_hosts > 0
-#     error_message = "This value can1t less than 1"
-#   }
-# }
+variable "replicas_num_hosts" {
+  type        = number
+  default     = 1
+  description = "Define number hosts to be replica thiss dbaas"
+  validation {
+    condition     = var.replicas_num_hosts > 0
+    error_message = "This value can1t less than 1"
+  }
+}
 
 variable "bastion_enable" {
   type        = bool
