@@ -12,12 +12,10 @@ resource "mgc_dbaas_instances" "this" {
   backup_retention_days = var.backup_enable ? var.backup_retention_days : 0
   backup_start_at       = var.backup_enable ? var.backup_start_at : null
   # datastore_id = ""
-  # engine_id = ""
   exchange = var.exchange
-  # status = ""
 }
 resource "mgc_dbaas_replicas" "this" {
-  count     = var.replicas_enable ? var.replicas_num_hosts : 0
+  count     = var.replicas_enable ? 1 : 0
   name      = "${mgc_dbaas_instances.this[0].name}-${count.index}"
   source_id = mgc_dbaas_instances.this[0].id
 }
