@@ -20,7 +20,6 @@ module "dbaas_example" {
   user                 = "admin"
   password             = random_string.password.id
   replicas_enable      = true
-  replicas_num_hosts   = 1
   volume_size          = 20
   backup_enable        = true
   bastion_enable       = true
