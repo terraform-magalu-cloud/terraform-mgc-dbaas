@@ -45,7 +45,7 @@ This module was created and maintained by the community. If you want to help, se
 | <a name="input_bastion_enable"></a> [bastion\_enable](#input\_bastion\_enable) | Defini if bastion server will be create to acces database by CLI | `bool` | `false` | no |
 | <a name="input_bastion_ssh_key_name"></a> [bastion\_ssh\_key\_name](#input\_bastion\_ssh\_key\_name) | Name of ssh key name to bastion server to access DB | `string` | `""` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether resource will be created or not | `bool` | `true` | no |
-| <a name="input_engine"></a> [engine](#input\_engine) | value | `string` | `"mysql-8.0"` | no |
+| <a name="input_engine"></a> [engine](#input\_engine) | Definie which egine dbaas will be use | `string` | `"mysql-8.0"` | no |
 | <a name="input_exchange"></a> [exchange](#input\_exchange) | Define exchange type | `string` | `"dbaas-internal"` | no |
 | <a name="input_flavor"></a> [flavor](#input\_flavor) | Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small | `string` | `"cloud-dbaas-bs1.medium"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of resource | `string` | `"test-db-terraform"` | no |

@@ -1,5 +1,6 @@
 output "dbaas_name" {
-  value = module.dbaas-example.name
+  description = "Name of resource"
+  value       = module.dbaas_example.name
 }
 
 output "password" {
@@ -10,10 +11,10 @@ output "password" {
 
 output "ip_address" {
   description = "Show IP of database"
-  value       = module.dbaas-example.ipv4
+  value       = module.dbaas_example.ipv4
 }
 
 output "access" {
   description = "Show IP of database"
-  value       = module.dbaas-example.access
+  value       = module.dbaas_example.access
 }

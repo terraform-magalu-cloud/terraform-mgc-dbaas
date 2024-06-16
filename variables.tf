@@ -23,7 +23,7 @@ variable "flavor" {
 variable "engine" {
   type        = string
   default     = "mysql-8.0"
-  description = "value"
+  description = "Definie which egine dbaas will be use"
   validation {
     condition     = length(regexall("mysql-(5.6|5.7|8.0)", var.engine)) > 0
     error_message = "Value not found, possible values: mysq-5.6, mysql-5.7 and mysql-8.0"

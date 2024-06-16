@@ -12,7 +12,7 @@ resource "random_string" "password" {
   special = false
 }
 
-module "dbaas-example" {
+module "dbaas_example" {
   source               = "../"
   name                 = "db-example-${random_string.sufix_name.id}"
   flavor               = "cloud-dbaas-bs1.medium"
