@@ -74,8 +74,8 @@ Flavors:     "cloud-dbaas-bs1.medium", "cloud-dbaas-bs1.large", "cloud-dbaas-bs1
 | <a name="output_ipv4"></a> [ipv4](#output\_ipv4) | IP this resource, format IPv4 |
 | <a name="output_name"></a> [name](#output\_name) | Name of resource |
 | <a name="output_replicas_access"></a> [replicas\_access](#output\_replicas\_access) | Type access this resources, format PRIVATE or PUBLIC |
+| <a name="output_replicas_addresses"></a> [replicas\_addresses](#output\_replicas\_addresses) | Address this resources |
 | <a name="output_replicas_id"></a> [replicas\_id](#output\_replicas\_id) | TId this resources |
-| <a name="output_replicas_ipv4"></a> [replicas\_ipv4](#output\_replicas\_ipv4) | IP this resource, format IPv4 |
 | <a name="output_replicas_name"></a> [replicas\_name](#output\_replicas\_name) | Name this resources |
 | <a name="output_started_at"></a> [started\_at](#output\_started\_at) | Timstamp when this resource was started last time |
 | <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | Timstamp when this resource was updated last time |
