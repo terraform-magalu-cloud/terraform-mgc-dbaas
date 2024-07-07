@@ -39,3 +39,27 @@ output "access" {
   value       = mgc_dbaas_instances.this[0].addresses[0].access
   sensitive   = false
 }
+
+output "replicas_id" {
+  description = "TId this resources"
+  value       = mgc_dbaas_replicas.this[*].id
+  sensitive   = false
+}
+
+output "replicas_name" {
+  description = "Name this resources"
+  value       = mgc_dbaas_replicas.this[*].name
+  sensitive   = false
+}
+
+output "replicas_access" {
+  description = "Type access this resources, format PRIVATE or PUBLIC"
+  value       = mgc_dbaas_replicas.this[*].addresses[0].access
+  sensitive   = false
+}
+
+output "replicas_addresses" {
+  description = "Address this resources"
+  value       = mgc_dbaas_replicas.this[*].addresses[0].address
+  sensitive   = false
+}

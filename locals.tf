@@ -15,4 +15,6 @@ locals {
     "cloud-dbaas-hm1.large"  = "897bc067-2cd2-4bf3-838c-9702a7b52b2c"
     "cloud-dbaas-hm1.small"  = "09106b02-5cfc-4d9b-afa2-2433d3458b61"
   }
+  is_windows = length(regexall("^[a-z]:", lower(abspath(path.root)))) > 0
+
 }

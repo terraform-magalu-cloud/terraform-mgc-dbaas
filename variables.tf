@@ -6,7 +6,6 @@ variable "create" {
 
 variable "name" {
   description = "Defines the name of resource"
-  default     = "test-db-terraform"
   type        = string
 }
 
@@ -82,6 +81,12 @@ variable "replicas_enable" {
   type        = bool
   default     = false
   description = "Define if this dbaas use replica"
+}
+
+variable "replicas_number" {
+  type        = number
+  default     = 1
+  description = "Define number of replica"
 }
 
 variable "bastion_enable" {
