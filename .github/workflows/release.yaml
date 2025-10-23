@@ -3,8 +3,8 @@ name: Terraform Release Automática
 on:
   push:
     branches:
-      - master  # branch principal do módulo Terraform
-
+      - main
+      - master
 jobs:
   release:
     name: Gerar Release Automática
