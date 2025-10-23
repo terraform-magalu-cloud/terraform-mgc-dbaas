@@ -1,37 +1,38 @@
-name: Release
+name: Terraform Release Automática
 
 on:
-  workflow_dispatch:
   push:
     branches:
-      - main
-      - master
-    paths:
-      - '**/*.tpl'
-      - '**/*.py'
-      - '**/*.tf'
-      - '.github/workflows/release.yml'
+      - master  # branch principal do módulo Terraform
 
 jobs:
   release:
-    name: Release
+    name: Gerar Release Automática
     runs-on: ubuntu-latest
-    # Skip running release workflow on forks
-    if: github.repository_owner == 'terraform-magalu-cloud'
+    permissions:
+      contents: write  # necessário para criar tags e releases
+
     steps:
-      - name: Checkout
+      - name: Checkout completo
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
-          fetch-depth: 0
+          fetch-depth: 0  # semantic-release precisa do histórico completo
 
-      - name: Release
-        uses: cycjimmy/semantic-release-action@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
         with:
-          semantic_version: 23.0.8
-          extra_plugins: |
-            @semantic-release/changelog@6.0.3
-            @semantic-release/git@10.0.1
-            conventional-changelog-conventionalcommits@7.0.2
+          node-version: 20
+
+      - name: Instalar semantic-release
+        run: |
+          npm install -g semantic-release \
+            @semantic-release/git \
+            @semantic-release/changelog \
+            @semantic-release/github \
+            @semantic-release/commit-analyzer \
+            @semantic-release/release-notes-generator
+
+      - name: Executar semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
