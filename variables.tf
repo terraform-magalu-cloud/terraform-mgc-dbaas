@@ -9,36 +9,40 @@ variable "name" {
   type        = string
 }
 
-variable "flavor" {
+variable "instance_type" {
   description = "Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small"
   type        = string
-  default     = "cloud-dbaas-bs1.medium"
-  validation {
-    condition     = length(regexall("cloud-dbaas-(bs1|gp1|hm1).(small|medium|large)", var.flavor)) > 0
-    error_message = "Value not found, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small"
-  }
+  default     = "BV4-8-10"
 }
 
 variable "engine" {
   type        = string
-  default     = "mysql-8.0"
-  description = "Definie which egine dbaas will be use, possible values: mysq-5.6 (deprecated), mysql-5.7 (deprecated) and mysql-8.0"
+  default     = "mysql"
+  description = "Define which engine dbaas will be used. Possible values: 'mysql', 'postgresql'."
   validation {
-    condition     = length(regexall("mysql-(5.6|5.7|8.0)", var.engine)) > 0
-    error_message = "Value not found, possible values: mysq-5.6, mysql-5.7 and mysql-8.0"
+    condition     = contains(["mysql", "postgresql"], var.engine)
+    error_message = "The engine must be either 'mysql' or 'postgresql'."
   }
+}
+
+variable "engine_version" {
+  type        = string
+  default     = "8.0"
+  description = "Engine version"
 }
 
 variable "user" {
   type        = string
   description = "Define name firts user to login dbaas"
   default     = "admin"
+  sensitive = true
 }
 
 variable "password" {
   type        = string
   description = "Define password firt user to login dbaas"
   sensitive   = true
+  default = "P@ssw0rd"
 }
 
 variable "volume_size" {
@@ -99,4 +103,10 @@ variable "bastion_ssh_key_name" {
   type        = string
   default     = ""
   description = "Name of ssh key name to bastion server to access DB"
+}
+
+variable "custom_parameters" {
+  description = "Custom parameters"
+  type        = map(string)
+  default     = {} # Padrão é um mapa vazio, o que significa que nenhum parâmetro será sobrescrito
 }

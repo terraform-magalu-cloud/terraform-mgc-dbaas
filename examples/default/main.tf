@@ -1,6 +1,6 @@
 provider "mgc" {
-  alias  = "ne"
-  region = "br-ne1"
+  api_key = var.api_key
+  region  = var.region
 }
 
 resource "random_string" "sufix_name" {
@@ -14,19 +14,17 @@ resource "random_string" "password" {
 }
 
 module "dbaas_example_ne" {
-  providers = {
-    mgc = mgc.ne
-  }
   source               = "../../"
-  name                 = "db-example-ne-${random_string.sufix_name.id}"
-  flavor               = "cloud-dbaas-bs1.medium"
-  engine               = "mysql-8.0"
-  user                 = "admin"
-  password             = random_string.password.id
-  replicas_enable      = true
-  replicas_number      = 1
-  volume_size          = 30
-  backup_enable        = true
+  name                  = var.name
+  user                  = var.user
+  password              = var.password
+  engine                = var.engine
+  engine_version        = var.engine_version
+  instance_type         = var.instance_type
+  volume_size           = var.volume_size
+  volume_type           = var.volume_type
+  backup_retention_days = var.backup_retention_days
+  backup_start_at       = var.backup_start_at
   bastion_enable       = true
   bastion_ssh_key_name = var.ssh_key_name
 }
