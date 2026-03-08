@@ -35,26 +35,20 @@ variable "user" {
   type        = string
   description = "Define name firts user to login dbaas"
   default     = "admin"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "password" {
   type        = string
   description = "Define password firt user to login dbaas"
   sensitive   = true
-  default = "P@ssw0rd"
+  default     = "P@ssw0rd"
 }
 
 variable "volume_size" {
   type        = number
   description = "Define size volume in GB on dbaas"
   default     = 20
-}
-
-variable "volume_type" {
-  default     = "CLOUD_NVME_15K"
-  description = "Define type volume in GB on dbaas"
-  type        = string
 }
 
 variable "backup_retention_days" {
@@ -73,12 +67,6 @@ variable "backup_enable" {
   type        = bool
   default     = true
   description = "Define if backup is enable of the dbaas"
-}
-
-variable "exchange" {
-  default     = "dbaas-internal"
-  type        = string
-  description = "Define exchange type"
 }
 
 variable "replicas_enable" {
@@ -109,4 +97,10 @@ variable "custom_parameters" {
   description = "Custom parameters"
   type        = map(string)
   default     = {} # Padrão é um mapa vazio, o que significa que nenhum parâmetro será sobrescrito
+}
+
+variable "create_parameter_group" {
+  description = "Enable or not create parameter group"
+  type        = bool
+  default     = true
 }

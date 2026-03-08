@@ -1,38 +1,34 @@
-name: Terraform Release Automática
-
+name: Release
 on:
   push:
     branches:
       - main
       - master
+
 jobs:
   release:
-    name: Gerar Release Automática
+    name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # necessário para criar tags e releases
-
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
-      - name: Checkout completo
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # semantic-release precisa do histórico completo
+          persist-credentials: false
 
-      - name: Configurar Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 'lts/*'
 
-      - name: Instalar semantic-release
-        run: |
-          npm install -g semantic-release \
-            @semantic-release/git \
-            @semantic-release/changelog \
-            @semantic-release/github \
-            @semantic-release/commit-analyzer \
-            @semantic-release/release-notes-generator
-
-      - name: Executar semantic-release
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}

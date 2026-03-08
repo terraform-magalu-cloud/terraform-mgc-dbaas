@@ -50,8 +50,8 @@ Se aplicável, adicione capturas de tela para ajudar a explicar seu problema.
 
 **Contexto adicional**
 - Versão do Terraform: `terraform version`
-- Versão do provider MGC: 
-- Versão do módulo: 
+- Versão do provider MGC:
+- Versão do módulo:
 - Sistema Operacional:
 - Configuração do backend:
 
@@ -60,7 +60,7 @@ Se aplicável, adicione capturas de tela para ajudar a explicar seu problema.
 # Cole aqui sua configuração Terraform relevante
 module "virtual_machine" {
   source = "terraform-magalu-cloud/virtual-machine/mgc"
-  
+
   # Sua configuração
 }
 ```

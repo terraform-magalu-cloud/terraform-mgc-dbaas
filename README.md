@@ -17,65 +17,68 @@ Flavors:     "cloud-dbaas-bs1.medium", "cloud-dbaas-bs1.large", "cloud-dbaas-bs1
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | 0.18.10 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.11.1 |
+| <a name="requirement_mgc"></a> [mgc](#requirement\_mgc) | >= 0.45.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.11.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.18.10 |
+| <a name="provider_mgc"></a> [mgc](#provider\_mgc) | 0.45.1 |
 | <a name="provider_time"></a> [time](#provider\_time) | 0.11.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion"></a> [bastion](#module\_bastion) | terraform-magalu-cloud/virtual-machine/mgc | 1.2.0 |
+| <a name="module_bastion"></a> [bastion](#module\_bastion) | terraform-magalu-cloud/virtual-machine/mgc | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [mgc_dbaas_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/dbaas_instances) | resource |
-| [mgc_dbaas_replicas.this](https://registry.terraform.io/providers/MagaluCloud/mgc/0.18.10/docs/resources/dbaas_replicas) | resource |
+| [mgc_dbaas_instances.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/dbaas_instances) | resource |
+| [mgc_dbaas_parameter_groups.mysql](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/dbaas_parameter_groups) | resource |
+| [mgc_dbaas_parameter_groups.postgresql](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/dbaas_parameter_groups) | resource |
+| [mgc_dbaas_parameters.mysql](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/dbaas_parameters) | resource |
+| [mgc_dbaas_parameters.postgresql](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/dbaas_parameters) | resource |
+| [mgc_dbaas_replicas.this](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/resources/dbaas_replicas) | resource |
 | [time_sleep.wait_5_minutes](https://registry.terraform.io/providers/hashicorp/time/0.11.1/docs/resources/sleep) | resource |
+| [mgc_dbaas_engines.engines](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/dbaas_engines) | data source |
+| [mgc_dbaas_instance_types.all_instance_types](https://registry.terraform.io/providers/MagaluCloud/mgc/latest/docs/data-sources/dbaas_instance_types) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Defines the name of resource | `string` | n/a | yes |
-| <a name="input_password"></a> [password](#input\_password) | Define password firt user to login dbaas | `string` | n/a | yes |
 | <a name="input_backup_enable"></a> [backup\_enable](#input\_backup\_enable) | Define if backup is enable of the dbaas | `bool` | `true` | no |
 | <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | Define days to backup frequency of the dbaas | `number` | `7` | no |
 | <a name="input_backup_start_at"></a> [backup\_start\_at](#input\_backup\_start\_at) | Define hour start backup of the dbaas | `string` | `"02:00:00"` | no |
 | <a name="input_bastion_enable"></a> [bastion\_enable](#input\_bastion\_enable) | Defini if bastion server will be create to acces database by CLI | `bool` | `false` | no |
 | <a name="input_bastion_ssh_key_name"></a> [bastion\_ssh\_key\_name](#input\_bastion\_ssh\_key\_name) | Name of ssh key name to bastion server to access DB | `string` | `""` | no |
 | <a name="input_create"></a> [create](#input\_create) | Defines whether resource will be created or not | `bool` | `true` | no |
-| <a name="input_engine"></a> [engine](#input\_engine) | Definie which egine dbaas will be use, possible values: mysq-5.6 (deprecated), mysql-5.7 (deprecated) and mysql-8.0 | `string` | `"mysql-8.0"` | no |
-| <a name="input_exchange"></a> [exchange](#input\_exchange) | Define exchange type | `string` | `"dbaas-internal"` | no |
-| <a name="input_flavor"></a> [flavor](#input\_flavor) | Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small | `string` | `"cloud-dbaas-bs1.medium"` | no |
+| <a name="input_create_parameter_group"></a> [create\_parameter\_group](#input\_create\_parameter\_group) | Enable or not create parameter group | `bool` | `true` | no |
+| <a name="input_custom_parameters"></a> [custom\_parameters](#input\_custom\_parameters) | Custom parameters | `map(string)` | `{}` | no |
+| <a name="input_engine"></a> [engine](#input\_engine) | Define which engine dbaas will be used. Possible values: 'mysql', 'postgresql'. | `string` | `"mysql"` | no |
+| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Engine version | `string` | `"8.0"` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small | `string` | `"BV4-8-10"` | no |
+| <a name="input_password"></a> [password](#input\_password) | Define password firt user to login dbaas | `string` | `"P@ssw0rd"` | no |
 | <a name="input_replicas_enable"></a> [replicas\_enable](#input\_replicas\_enable) | Define if this dbaas use replica | `bool` | `false` | no |
 | <a name="input_replicas_number"></a> [replicas\_number](#input\_replicas\_number) | Define number of replica | `number` | `1` | no |
 | <a name="input_user"></a> [user](#input\_user) | Define name firts user to login dbaas | `string` | `"admin"` | no |
 | <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | Define size volume in GB on dbaas | `number` | `20` | no |
-| <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | Define type volume in GB on dbaas | `string` | `"CLOUD_NVME_15K"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_access"></a> [access](#output\_access) | Type access this resource, format PRIVATE or PUBLIC |
-| <a name="output_created_at"></a> [created\_at](#output\_created\_at) | Timstamp when this resource was created |
-| <a name="output_current_status"></a> [current\_status](#output\_current\_status) | Current status this resource |
-| <a name="output_id"></a> [id](#output\_id) | Id of resource |
-| <a name="output_ipv4"></a> [ipv4](#output\_ipv4) | IP this resource, format IPv4 |
-| <a name="output_name"></a> [name](#output\_name) | Name of resource |
-| <a name="output_replicas_access"></a> [replicas\_access](#output\_replicas\_access) | Type access this resources, format PRIVATE or PUBLIC |
-| <a name="output_replicas_addresses"></a> [replicas\_addresses](#output\_replicas\_addresses) | Address this resources |
-| <a name="output_replicas_id"></a> [replicas\_id](#output\_replicas\_id) | TId this resources |
-| <a name="output_replicas_name"></a> [replicas\_name](#output\_replicas\_name) | Name this resources |
-| <a name="output_started_at"></a> [started\_at](#output\_started\_at) | Timstamp when this resource was started last time |
-| <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | Timstamp when this resource was updated last time |
+| <a name="output_all_instance_types"></a> [all\_instance\_types](#output\_all\_instance\_types) | List of available database instance type. |
+| <a name="output_available_engines"></a> [available\_engines](#output\_available\_engines) | List of available database engines. |
+| <a name="output_engine_id"></a> [engine\_id](#output\_engine\_id) | Unique identifier for the database engine. |
+| <a name="output_id"></a> [id](#output\_id) | Unique identifier for the DBaaS instance. Generated automatically on creation. |
+| <a name="output_instance_type_id"></a> [instance\_type\_id](#output\_instance\_type\_id) | Unique identifier for the instance. |
+| <a name="output_parameter_group_id"></a> [parameter\_group\_id](#output\_parameter\_group\_id) | Unique identifier for the parameters group. |
+| <a name="output_parameters_ids"></a> [parameters\_ids](#output\_parameters\_ids) | A map of unique identifiers for the parameters, keyed by parameter name. |
+| <a name="output_status"></a> [status](#output\_status) | Status of the instance. |

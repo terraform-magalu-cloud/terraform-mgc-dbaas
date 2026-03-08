@@ -1,65 +1,39 @@
-output "name" {
-  description = "Name of resource"
-  value       = mgc_dbaas_clusters.this[0].name
-}
-
-output "created_at" {
-  description = "Timstamp when this resource was created"
-  value       = mgc_dbaas_clusters.this[0].created_at
-}
-
-output "started_at" {
-  description = "Timstamp when this resource was started last time"
-  value       = mgc_dbaas_clusters.this[0].started_at
-}
-
-output "updated_at" {
-  description = "Timstamp when this resource was updated last time"
-  value       = mgc_dbaas_clusters.this[0].updated_at
+output "engine_id" {
+  description = "Unique identifier for the database engine."
+  value       = var.create ? mgc_dbaas_instances.this[0].engine_id : null
 }
 
 output "id" {
-  description = "Id of resource"
-  value       = mgc_dbaas_clusters.this[0].id
+  description = "Unique identifier for the DBaaS instance. Generated automatically on creation."
+  value       = var.create ? mgc_dbaas_instances.this[0].id : null
 }
 
-output "current_status" {
-  description = "Current status this resource"
-  value       = mgc_dbaas_clusters.this[0].status
+output "instance_type_id" {
+  description = "Unique identifier for the instance."
+  value       = var.create ? mgc_dbaas_instances.this[0].instance_type_id : null
 }
 
-output "ipv4" {
-  description = "IP this resource, format IPv4"
-  value       = mgc_dbaas_clusters.this[0].addresses[0].address
-  sensitive   = false
+output "status" {
+  description = "Status of the instance."
+  value       = var.create ? mgc_dbaas_instances.this[0].status : null
 }
 
-output "access" {
-  description = "Type access this resource, format PRIVATE or PUBLIC"
-  value       = mgc_dbaas_clusters.this[0].addresses[0].access
-  sensitive   = false
+output "parameter_group_id" {
+  description = "Unique identifier for the parameters group."
+  value       = var.create ? local.parameter_group[var.engine] : null
 }
 
-output "replicas_id" {
-  description = "TId this resources"
-  value       = mgc_dbaas_replicas.this[*].id
-  sensitive   = false
+output "parameters_ids" {
+  description = "A map of unique identifiers for the parameters, keyed by parameter name."
+  value       = var.create ? (var.engine == "mysql" ? { for k, v in mgc_dbaas_parameters.mysql : k => v.id } : { for k, v in mgc_dbaas_parameters.postgresql : k => v.id }) : {}
 }
 
-output "replicas_name" {
-  description = "Name this resources"
-  value       = mgc_dbaas_replicas.this[*].name
-  sensitive   = false
+output "available_engines" {
+  description = "List of available database engines."
+  value       = data.mgc_dbaas_engines.engines.engines
 }
+output "all_instance_types" {
+  description = "List of available database instance type."
+  value       = [for instance_tpye in data.mgc_dbaas_instance_types.all_instance_types.instance_types : instance_tpye.name]
 
-output "replicas_access" {
-  description = "Type access this resources, format PRIVATE or PUBLIC"
-  value       = mgc_dbaas_replicas.this[*].addresses[0].access
-  sensitive   = false
-}
-
-output "replicas_addresses" {
-  description = "Address this resources"
-  value       = mgc_dbaas_replicas.this[*].addresses[0].address
-  sensitive   = false
 }
