@@ -1,44 +1,33 @@
 {
-  "branches": [
-    "main",
-    "master"
-  ],
-  "ci": false,
+  "branches": ["main","master"],
   "plugins": [
-    [
-      "@semantic-release/commit-analyzer",
-      {
-        "preset": "conventionalcommits"
-      }
-    ],
-    [
-      "@semantic-release/release-notes-generator",
-      {
-        "preset": "conventionalcommits"
-      }
-    ],
-    [
-      "@semantic-release/github",
-      {
-        "successComment": "This ${issue.pull_request ? 'PR is included' : 'issue has been resolved'} in version ${nextRelease.version} :tada:",
-        "labels": false,
-        "releasedLabels": false
-      }
-    ],
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
     [
       "@semantic-release/changelog",
       {
-        "changelogFile": "CHANGELOG.md",
-        "changelogTitle": "# Changelog\n\nAll notable changes to this project will be documented in this file."
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "npx showdown makehtml -i CHANGELOG.md -o CHANGELOG.html"
       }
     ],
     [
       "@semantic-release/git",
       {
+        "assets": ["CHANGELOG.md", "CHANGELOG.html"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
         "assets": [
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): version ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+          { "path": "CHANGELOG.html", "label": "Changelog (HTML)" }
+        ]
       }
     ]
   ]
