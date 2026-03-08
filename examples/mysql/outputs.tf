@@ -1,3 +1,4 @@
 output "instance_type" {
-  value = module.dbaas_mysql.all_instance_types
+  description = "Type of instance database"
+  value       = module.dbaas_mysql.all_instance_types
 }
