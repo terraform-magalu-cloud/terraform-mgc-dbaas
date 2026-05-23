@@ -104,3 +104,14 @@ variable "create_parameter_group" {
   type        = bool
   default     = true
 }
+
+variable "mode" {
+  description = "Define mode of dbaas, possible values: 'standard', 'cluster'"
+  type        = string
+  default     = "standard"
+  validation {
+    condition     = contains(["standard"], var.mode)
+    error_message = "The mode must be either 'standard' or 'cluster'."
+  }
+
+}

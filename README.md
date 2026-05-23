@@ -64,6 +64,7 @@ Flavors:     "cloud-dbaas-bs1.medium", "cloud-dbaas-bs1.large", "cloud-dbaas-bs1
 | <a name="input_engine"></a> [engine](#input\_engine) | Define which engine dbaas will be used. Possible values: 'mysql', 'postgresql'. | `string` | `"mysql"` | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Engine version | `string` | `"8.0"` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Define size instance database, possible values: cloud-dbaas-bs1.medium, cloud-dbaas-bs1.large, cloud-dbaas-bs1.small, cloud-dbaas-gp1.small, cloud-dbaas-gp1.medium,  cloud-dbaas-gp1.large, cloud-dbaas-hm1.medium, cloud-dbaas-hm1.large, cloud-dbaas-hm1.small | `string` | `"BV4-8-10"` | no |
+| <a name="input_mode"></a> [mode](#input\_mode) | Define mode of dbaas, possible values: 'standard', 'cluster' | `string` | `"standard"` | no |
 | <a name="input_password"></a> [password](#input\_password) | Define password firt user to login dbaas | `string` | `"P@ssw0rd"` | no |
 | <a name="input_replicas_enable"></a> [replicas\_enable](#input\_replicas\_enable) | Define if this dbaas use replica | `bool` | `false` | no |
 | <a name="input_replicas_number"></a> [replicas\_number](#input\_replicas\_number) | Define number of replica | `number` | `1` | no |
