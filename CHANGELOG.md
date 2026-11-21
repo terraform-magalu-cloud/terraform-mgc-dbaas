@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/terraform-magalu-cloud/terraform-mgc-dbaas/compare/v1.0.0...v2.0.0) (2026-11-21)
+
+### ⚠ BREAKING CHANGES
+
+* **provider:** upgrade `MagaluCloud/mgc` constraint to `>= 0.56.0, < 1.0.0` and Terraform to `>= 1.6.0`
+* **bastion:** completely remove bastion submodule and variables (`bastion_enable`, `bastion_ip_whitelist`, `bastion_public_key`, `bastion_vpc_id`)
+* **outputs:** remove obsolete attributes dropped in provider 0.56.0 (`ipv4`, `access`, `addresses`, `created_at`, `updated_at`, `replicas_addresses`)
+* **instance_type:** update default and examples to DBaaS v2 hardware labels (e.g. `DP2-8-40`). Legacy `cloud-dbaas-*` strings are deprecated
+
+### Features
+
+* **cluster:** add support for High Availability DBaaS Clusters via native `mgc_dbaas_clusters`
+* **credentials:** add automatic 24-character random password generation via `random_password` when password is omitted
+* **engines:** add native support for PostgreSQL (port 5432) alongside MySQL (port 3306)
+* **outputs:** add `connection_url`, `port`, `password`, `replicas_id`, and `replicas_name`
+* **security:** add `api_key` input variable with UUID v4 validation
+* **testing:** implement native test suite with 10 test scenarios covering defaults, clusters, replicas, postgres, disabled state, input validations, and backwards compatibility
+* **tooling:** add `Makefile` for developer workflow (`init`, `fmt`, `validate`, `test`, `docs`, `check`, `clean`)
+* **ci:** add GitHub Actions test workflow (`.github/workflows/test.yaml`)
+* **examples:** remodel examples covering MySQL and PostgreSQL across Standalone, Replicas, and HA Cluster topologies
+
 ## 1.0.0 (2024-07-07)
 
 

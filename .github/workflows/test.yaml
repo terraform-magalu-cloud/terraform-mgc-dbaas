@@ -1,0 +1,43 @@
+name: Terraform Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feat/**
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test:
+    name: Run Terraform Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        terraform_version: ["1.6.6", "1.8.5", "1.10.0"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ matrix.terraform_version }}
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init
+        run: terraform init -upgrade
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Run Native Terraform Tests
+        run: terraform test
+        env:
+          MGC_API_KEY: "00000000-0000-4000-8000-000000000000"

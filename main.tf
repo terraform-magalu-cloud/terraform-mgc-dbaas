@@ -1,60 +1,68 @@
-resource "mgc_dbaas_instances" "this" {
-  count     = var.create ? 1 : 0
-  flavor_id = local.flavor[var.flavor]
-  name      = var.name
-  user      = var.user
-  password  = var.password
-  volume = {
-    size = var.volume_size
-    type = var.volume_type
-  }
-  engine_id             = local.engine[var.engine]
-  backup_retention_days = var.backup_enable ? var.backup_retention_days : null
-  backup_start_at       = var.backup_enable ? var.backup_start_at : null
-  # datastore_id = ""
-  exchange = var.exchange
-  provisioner "local-exec" {
-    command    = local.is_windows ? "timeout /t 60 /nobreak" : "sleep 60"
-    on_failure = continue
-  }
+# -----------------------------------------------------------------------------
+# Random Password Generation (when not provided by user)
+# -----------------------------------------------------------------------------
+resource "random_password" "master_password" {
+  count   = var.create && var.password == null ? 1 : 0
+  length  = 24
+  special = false
 }
 
-resource "time_sleep" "wait_5_minutes" {
+# -----------------------------------------------------------------------------
+# Standalone DBaaS Instance (standalone or with replicas)
+# -----------------------------------------------------------------------------
+resource "mgc_dbaas_instances" "this" {
+  count                 = var.create && !local.is_cluster ? 1 : 0
+  name                  = var.name
+  user                  = var.user
+  password              = local.effective_password
+  engine_name           = local.engine_name
+  engine_version        = local.engine_version
+  instance_type         = local.instance_type
+  volume_size           = var.volume_size
+  volume_type           = var.volume_type
+  availability_zone     = var.availability_zone
+  backup_retention_days = var.backup_enable ? var.backup_retention_days : null
+  backup_start_at       = var.backup_enable ? var.backup_start_at : null
+}
+
+# -----------------------------------------------------------------------------
+# Read Replicas (for standalone topology with replicas)
+# -----------------------------------------------------------------------------
+resource "time_sleep" "wait_for_master" {
+  count           = var.create && local.is_replicas ? 1 : 0
   depends_on      = [mgc_dbaas_instances.this]
-  count           = var.replicas_enable ? 1 : 0
-  create_duration = "5m"
+  create_duration = var.replica_wait_duration
 }
 
 resource "mgc_dbaas_replicas" "this" {
-  depends_on = [mgc_dbaas_instances.this, time_sleep.wait_5_minutes]
-  # for_each   = var.replicas_enable ? local.replca_map: {}
-  count     = var.replicas_enable ? var.replicas_number : 0
-  name      = "${mgc_dbaas_instances.this[0].name}-rep-${count.index}"
-  source_id = mgc_dbaas_instances.this[0].id
-  provisioner "local-exec" {
-    when       = create
-    command    = local.is_windows ? "timeout /t ${count.index * 300} /nobreak" : "sleep ${count.index * 300}"
-    on_failure = continue
-  }
+  count      = var.create && local.is_replicas ? var.replicas_number : 0
+  depends_on = [mgc_dbaas_instances.this, time_sleep.wait_for_master]
+  name       = "${mgc_dbaas_instances.this[0].name}-rep-${count.index + 1}"
+  source_id  = mgc_dbaas_instances.this[0].id
+
   lifecycle {
     precondition {
-      condition     = mgc_dbaas_instances.this[0].status != "ERROR"
-      error_message = "Status of dbaas master can't be error"
+      condition     = try(mgc_dbaas_instances.this[0].status, "") != "ERROR"
+      error_message = "The primary DBaaS instance status cannot be 'ERROR'."
     }
   }
 }
 
-module "bastion" {
-  depends_on          = [mgc_dbaas_instances.this]
-  source              = "terraform-magalu-cloud/virtual-machine/mgc"
-  version             = "1.2.0"
-  create              = var.bastion_enable
-  ssh_key_name        = length(var.bastion_ssh_key_name) > 0 ? var.bastion_ssh_key_name : "Erro, define ssh key name"
-  name                = "bastion-${mgc_dbaas_instances.this[0].name}"
-  associate_public_ip = true
-  user_data           = <<EOF
-  #!/bin/bash
-  sudo apt update
-  sudo apt install mysql-client postgresql-client -y
-  EOF
+# -----------------------------------------------------------------------------
+# High Availability Database Cluster (when deployment_type = "cluster")
+# -----------------------------------------------------------------------------
+resource "mgc_dbaas_clusters" "this" {
+  count                 = var.create && local.is_cluster ? 1 : 0
+  name                  = var.name
+  user                  = var.user
+  password              = local.effective_password
+  engine_name           = local.engine_name
+  engine_version        = local.engine_version
+  instance_type         = local.instance_type
+  volume_size           = var.volume_size
+  volume_type           = var.volume_type
+  backup_retention_days = var.backup_enable ? var.backup_retention_days : null
+  backup_start_at       = var.backup_enable ? var.backup_start_at : null
 }
+
+
