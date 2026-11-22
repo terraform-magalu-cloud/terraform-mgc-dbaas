@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### ⚠ BREAKING CHANGES
 
-* **provider:** upgrade `MagaluCloud/mgc` constraint to `>= 0.56.0, < 1.0.0` and Terraform to `>= 1.6.0`
+* **provider:** upgrade `MagaluCloud/mgc` constraint to `>= 0.56.0, < 1.0.0` and Terraform to `>= 1.11.0` (required for WriteOnly attributes `user` and `password`)
 * **bastion:** completely remove bastion submodule and variables (`bastion_enable`, `bastion_ip_whitelist`, `bastion_public_key`, `bastion_vpc_id`)
 * **outputs:** remove obsolete attributes dropped in provider 0.56.0 (`ipv4`, `access`, `addresses`, `created_at`, `updated_at`, `replicas_addresses`)
 * **instance_type:** update default and examples to DBaaS v2 hardware labels (e.g. `DP2-8-40`). Legacy `cloud-dbaas-*` strings are deprecated
