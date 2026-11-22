@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/terraform-magalu-cloud/terraform-mgc-dbaas/compare/v1.0.0...v2.0.0) (2026-11-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade provider to mgc >= 0.56.0; remove bastion submodule and variables (bastion_enable, bastion_ip_whitelist, bastion_public_key, bastion_vpc_id); remove obsolete instance outputs (ipv4, access, addresses, created_at, updated_at); update default instance_type to DBaaS v2 hardware labels."
+
+### Features
+
+* upgrade provider to mgc 0.56.0, add cluster HA and test suite ([019bae5](https://github.com/terraform-magalu-cloud/terraform-mgc-dbaas/commit/019bae5bb5042054175f1fdab24d6dcb9f1c24b8))
+
 ## [2.0.0](https://github.com/terraform-magalu-cloud/terraform-mgc-dbaas/compare/v1.0.0...v2.0.0) (2026-11-21)
 
 ### ⚠ BREAKING CHANGES
