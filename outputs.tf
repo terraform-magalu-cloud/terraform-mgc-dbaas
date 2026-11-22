@@ -1,65 +1,83 @@
-output "name" {
-  description = "Name of resource"
-  value       = mgc_dbaas_instances.this[0].name
-}
-
-output "created_at" {
-  description = "Timstamp when this resource was created"
-  value       = mgc_dbaas_instances.this[0].created_at
-}
-
-output "started_at" {
-  description = "Timstamp when this resource was started last time"
-  value       = mgc_dbaas_instances.this[0].started_at
-}
-
-output "updated_at" {
-  description = "Timstamp when this resource was updated last time"
-  value       = mgc_dbaas_instances.this[0].updated_at
-}
-
+# -----------------------------------------------------------------------------
+# Primary / Cluster Resource Identifiers
+# -----------------------------------------------------------------------------
 output "id" {
-  description = "Id of resource"
-  value       = mgc_dbaas_instances.this[0].id
+  description = "ID of the DBaaS instance or cluster"
+  value       = local.is_cluster ? try(mgc_dbaas_clusters.this[0].id, null) : try(mgc_dbaas_instances.this[0].id, null)
+}
+
+output "name" {
+  description = "Name of the DBaaS instance or cluster"
+  value       = local.is_cluster ? try(mgc_dbaas_clusters.this[0].name, null) : try(mgc_dbaas_instances.this[0].name, null)
+}
+
+output "deployment_type" {
+  description = "Resolved deployment topology (standalone, replicas, or cluster)"
+  value       = var.deployment_type
+}
+
+output "status" {
+  description = "Current status of the DBaaS resource"
+  value       = local.is_cluster ? try(mgc_dbaas_clusters.this[0].status, null) : try(mgc_dbaas_instances.this[0].status, null)
 }
 
 output "current_status" {
-  description = "Current status this resource"
-  value       = mgc_dbaas_instances.this[0].current_status
+  description = "Legacy status alias"
+  value       = local.is_cluster ? try(mgc_dbaas_clusters.this[0].status, null) : try(mgc_dbaas_instances.this[0].status, null)
 }
 
-output "ipv4" {
-  description = "IP this resource, format IPv4"
-  value       = mgc_dbaas_instances.this[0].addresses[0].address
-  sensitive   = false
+# -----------------------------------------------------------------------------
+# Networking, Credentials & Connection URIs
+# -----------------------------------------------------------------------------
+output "user" {
+  description = "Administrative user for database connection"
+  value       = var.user
 }
 
-output "access" {
-  description = "Type access this resource, format PRIVATE or PUBLIC"
-  value       = mgc_dbaas_instances.this[0].addresses[0].access
-  sensitive   = false
+output "password" {
+  description = "Administrative password (user-defined or auto-generated)"
+  value       = local.effective_password
+  sensitive   = true
+}
+
+output "port" {
+  description = "TCP port of the database service"
+  value       = local.port
+}
+
+output "host" {
+  description = "Target host / database name reference"
+  value       = local.host
+}
+
+output "connection_url" {
+  description = "Standard connection URI string ready for application configuration"
+  value       = "${local.engine_name}://${var.user}:${local.effective_password}@${local.host}:${local.port}/${local.database_name}"
+  sensitive   = true
+}
+
+# -----------------------------------------------------------------------------
+# Read Replicas Outputs
+# -----------------------------------------------------------------------------
+output "replicas" {
+  description = "List of read replicas created with their details"
+  value = [
+    for rep in mgc_dbaas_replicas.this : {
+      id     = rep.id
+      name   = rep.name
+      status = try(rep.status, null)
+    }
+  ]
 }
 
 output "replicas_id" {
-  description = "TId this resources"
+  description = "List of IDs of all DBaaS replicas"
   value       = mgc_dbaas_replicas.this[*].id
-  sensitive   = false
 }
 
 output "replicas_name" {
-  description = "Name this resources"
+  description = "List of names of all DBaaS replicas"
   value       = mgc_dbaas_replicas.this[*].name
-  sensitive   = false
 }
 
-output "replicas_access" {
-  description = "Type access this resources, format PRIVATE or PUBLIC"
-  value       = mgc_dbaas_replicas.this[*].addresses[0].access
-  sensitive   = false
-}
 
-output "replicas_addresses" {
-  description = "Address this resources"
-  value       = mgc_dbaas_replicas.this[*].addresses[0].address
-  sensitive   = false
-}

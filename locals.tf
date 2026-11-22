@@ -1,20 +1,37 @@
 locals {
-  engine = {
-    "mysql-5.6" = "021fbbe0-aea2-4d44-8594-ed4e9ebd0442"
-    "mysql-5.7" = "4951a18e-88eb-407d-88a5-ff05903724ed"
-    "mysql-8.0" = "063f3994-b6c2-4c37-96c9-bab8d82d36f7"
-  }
-  flavor = {
-    "cloud-dbaas-bs1.medium" = "c460d5c1-883d-4fea-afc3-1a208e982084"
-    "cloud-dbaas-bs1.large"  = "650154ba-87a4-45b1-9ce6-f0b591603366"
-    "cloud-dbaas-bs1.small"  = "8bbe8e01-40c8-4d2b-80e8-189debc44b1c"
-    "cloud-dbaas-gp1.small"  = "a31e3ac5-845a-4fef-b2c3-e101ae25acb5"
-    "cloud-dbaas-gp1.medium" = "8916323b-458f-4acf-92bf-5734b92bba61"
-    "cloud-dbaas-gp1.large"  = "481aac7d-dd67-4054-bad2-dff712f4c77f"
-    "cloud-dbaas-hm1.medium" = "c29c2a8f-6d31-4c3d-9f7c-90bbf9a71e60"
-    "cloud-dbaas-hm1.large"  = "897bc067-2cd2-4bf3-838c-9702a7b52b2c"
-    "cloud-dbaas-hm1.small"  = "09106b02-5cfc-4d9b-afa2-2433d3458b61"
-  }
-  is_windows = length(regexall("^[a-z]:", lower(abspath(path.root)))) > 0
+  # Support legacy "engine" parameter (e.g., "mysql-8.0") or dedicated engine_name / engine_version variables
+  legacy_engine_parts = var.engine != null ? split("-", var.engine) : []
 
+  engine_name = coalesce(
+    length(local.legacy_engine_parts) > 0 ? local.legacy_engine_parts[0] : null,
+    var.engine_name,
+    "mysql"
+  )
+
+  engine_version = coalesce(
+    length(local.legacy_engine_parts) > 1 ? local.legacy_engine_parts[1] : null,
+    var.engine_version,
+    "8.0"
+  )
+
+  # Instance type / flavor fallback
+  instance_type = coalesce(var.flavor, var.instance_type, "DP2-8-40")
+
+  # Topology calculation with backward compatibility
+  is_cluster  = var.deployment_type == "cluster"
+  is_replicas = var.deployment_type == "replicas" || (!local.is_cluster && var.replicas_enable)
+
+  # Effective password (user provided or auto-generated)
+  effective_password = coalesce(
+    var.password,
+    try(random_password.master_password[0].result, null),
+    ""
+  )
+
+  # Default network ports by engine
+  default_port = local.engine_name == "postgresql" ? 5432 : 3306
+  port         = coalesce(var.port, local.default_port)
+
+  database_name = coalesce(var.database_name, "defaultdb")
+  host          = var.name
 }
